@@ -18,7 +18,7 @@ LOCKER_BRANCH='master'
 
 # check_for name exec_name version_command [minimum_version [optional]]
 check_for() {
-    found="$(which $2)"
+    found="$(which $2 || true)"
     version="$($3 2>&1 | grep -o -E [-0-9.]\{1,\} | head -n 1)"
     if [ -z "${found}" ]
     then
@@ -47,7 +47,7 @@ check_for() {
             then
                 exit 1
             else
-                false
+                return 1
             fi
         fi
     else
@@ -118,9 +118,7 @@ check_for cmake cmake 'cmake --version'
 mkdir -p local/build
 cd local/build
 
-check_for Node.js node 'node -v' 0.4.8 optional
-
-if [ $? -ne 0 ]
+if ! check_for Node.js node 'node -v' 0.4.8 optional
 then
     echo ""
     echo "You don't seem to have node.js installed."
@@ -142,9 +140,7 @@ then
 fi
 
 cd "${BASEDIR}/local/build"
-check_for npm npm "npm -v" 1 optional
-
-if [ $? -ne 0 ]
+if ! check_for npm npm "npm -v" 1 optional
 then
     echo ""
     echo "About to download and install locally npm."
@@ -160,9 +156,7 @@ fi
 
 if [ ! -e "${BASEDIR}/local/bin/activate" ]
 then
-    check_for virtualenv virtualenv "virtualenv --version" 1.4 optional
-
-    if [ $? -ne 0 ]
+    if ! check_for virtualenv virtualenv "virtualenv --version" 1.4 optional
     then
         echo ""
         echo "About to download virtualenv.py."
@@ -184,9 +178,7 @@ else
     echo "Failed to activate virtual Python environment." >&2
 fi
 
-check_for mongoDB mongod "mongod --version" 1.4.0 optional
-
-if [ $? -ne 0 ]
+if ! check_for mongoDB mongod "mongod --version" 1.4.0 optional
 then
     OS=`uname -s`
     case "${OS}" in
@@ -224,8 +216,7 @@ then
     fi
 fi
 
-check_for_pkg_config CLucene libclucene-core 2.3.3.4 optional
-if [ $? -ne 0 ]
+if ! check_for_pkg_config CLucene libclucene-core 2.3.3.4 optional
 then
     echo ""
     echo "About to download, build, and install locally CLucene."
