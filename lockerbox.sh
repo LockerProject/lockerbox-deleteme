@@ -32,7 +32,7 @@ check_for() {
 
     if [ -n "$4" ]
     then
-        if (echo $version|grep -v -E [0-9] > /dev/null)
+        if echo $version|grep -q -v -E [0-9]
         then
             result="False"
         else
