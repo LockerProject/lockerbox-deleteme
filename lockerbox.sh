@@ -101,11 +101,17 @@ then
     cd "${BASEDIR}"
 fi
 
-PYEXE="$(which python)" ; export PYEXE
+envscript="${BASEDIR}/lockerbox_environment.sh"
+cat >> "$envscript" <<"EOF"
+export PATH="${BASEDIR}/local/bin":${PATH}
+export NODE_PATH="${BASEDIR}/local/lib/node_modules":${NODE_PATH}
+export PKG_CONFIG_PATH="${BASEDIR}/local/lib/pkgconfig":${PKG_CONFIG_PATH}
+export CXXFLAGS="-I${BASEDIR}/local/include"
+export LD_LIBRARY_PATH="${BASEDIR}/local/lib"
+export LIBRARY_PATH="${BASEDIR}/local/lib"
+EOF
 
-PATH="${BASEDIR}/local/bin":${PATH} ; export PATH
-NODE_PATH="${BASEDIR}/local/lib/node_modules":${NODE_PATH} ; export NODE_PATH
-PKG_CONFIG_PATH="${BASEDIR}/local/lib/pkgconfig":${PKG_CONFIG_PATH} ; export PKG_CONFIG_PATH
+. "$envscript"
 
 check_for Git git 'git --version'
 check_for Python python 'python -V' 2.6
@@ -159,7 +165,7 @@ then
         download "${VIRTUALENV_DOWNLOAD}"
     fi
 
-    if ${PYEXE} -m virtualenv --no-site-packages "${BASEDIR}/local"
+    if python -m virtualenv --no-site-packages "${BASEDIR}/local"
     then
         echo "Set up virtual Python environment."
     else
@@ -262,10 +268,7 @@ cd Locker
 echo "Checking out submodules"
 git submodule update --init
 
-CXXFLAGS="-I${BASEDIR}/local/include" \
-    LD_LIBRARY_PATH="${BASEDIR}/local/lib" \
-    LIBRARY_PATH="${BASEDIR}/local/lib" \
-    npm install
+npm install
 
 echo "Installing Python modules"
 if ! python setupEnv.py; then
