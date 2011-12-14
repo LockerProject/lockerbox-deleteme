@@ -271,11 +271,19 @@ CXXFLAGS="-I${BASEDIR}/local/include" \
     LIBRARY_PATH="${BASEDIR}/local/lib" \
     npm install
 
-if python setupEnv.py; then
-    echo "Looks like everything worked!"
-else
-    echo "Something went wrong. :-/"
+echo "Installing Python modules"
+if ! python setupEnv.py; then
+    echo "Failed to install Python modules" >&2
+    exit 1
 fi
+
+echo "One final check to see if everything is as it should be..."
+if ! ./checkEnv.sh; then
+    echo "Installation appeared to succeed, but dependency check failed :-/" >&2
+    exit 1
+fi
+
+echo "Looks like everything worked."
 
 # This won't work until we have API keys -mdz 2011-12-01
 # node lockerd.js
