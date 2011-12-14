@@ -170,6 +170,7 @@ then
         echo "Set up virtual Python environment."
     else
         echo "Failed to set up virtual Python environment." >&2
+        exit 1
     fi
 fi
 
