@@ -17,7 +17,7 @@ LOCKER_BRANCH=${LOCKER_BRANCH:-master}
 
 # check_for name exec_name version_command [minimum_version [optional]]
 check_for() {
-    found="$(which $2)"
+    found="$(which $2 || true)"
     version="$($3 2>&1 | grep -o -E [-0-9.]\{1,\} | head -n 1)"
     if [ -z "${found}" ]
     then
