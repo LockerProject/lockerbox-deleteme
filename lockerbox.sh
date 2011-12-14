@@ -22,6 +22,7 @@ check_for() {
     if [ -z "${found}" ]
     then
         echo "$1 not found!" >&2
+        if [ -z "$5" ]; then return 1; fi
     else
         echo "$1 version ${version} found."
         if [ -z "$4" ]
