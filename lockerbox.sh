@@ -186,7 +186,7 @@ else
     echo "Failed to activate virtual Python environment." >&2
 fi
 
-if ! check_for mongoDB mongod "mongod --version" 1.4.0
+if ! check_for mongoDB mongod "mongod --version" 1.4.0 optional
 then
     OS=`uname -s`
     case "${OS}" in
