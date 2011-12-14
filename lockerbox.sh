@@ -11,8 +11,8 @@ MONGODB_DOWNLOAD='http://fastdl.mongodb.org/OS/mongodb-OS-ARCH-2.0.0.tgz'
 CLUCENE_REPO='git://clucene.git.sourceforge.net/gitroot/clucene/clucene'
 LOCKERBOX_DOWNLOAD='https://raw.github.com/LockerProject/lockerbox/master/lockerbox.sh'
 
-LOCKER_REPO='https://github.com/LockerProject/Locker.git'
-LOCKER_BRANCH='master'
+LOCKER_REPO=${LOCKER_REPO:-https://github.com/LockerProject/Locker.git}
+LOCKER_BRANCH=${LOCKER_BRANCH:-master}
 
 #### Helper functions
 
