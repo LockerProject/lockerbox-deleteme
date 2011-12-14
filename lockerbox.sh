@@ -9,7 +9,6 @@ NPM_DOWNLOAD='http://npmjs.org/install.sh'
 VIRTUALENV_DOWNLOAD='http://github.com/pypa/virtualenv/raw/develop/virtualenv.py'
 MONGODB_DOWNLOAD='http://fastdl.mongodb.org/OS/mongodb-OS-ARCH-2.0.0.tgz'
 CLUCENE_REPO='git://clucene.git.sourceforge.net/gitroot/clucene/clucene'
-LOCKERBOX_DOWNLOAD='https://raw.github.com/LockerProject/lockerbox/master/lockerbox.sh'
 
 LOCKER_REPO=${LOCKER_REPO:-https://github.com/LockerProject/Locker.git}
 LOCKER_BRANCH=${LOCKER_BRANCH:-master}
@@ -104,11 +103,8 @@ fi
 
 PYEXE="$(which python)" ; export PYEXE
 
-PRE_LOCKERBOX_PATH=${PATH} ; export PRE_LOCKERBOX_PATH
 PATH="${BASEDIR}/local/bin":${PATH} ; export PATH
-PRE_LOCKERBOX_NODE_PATH=${NODE_PATH} ; export PRE_LOCKERBOX_NODE_PATH
 NODE_PATH="${BASEDIR}/local/lib/node_modules":${NODE_PATH} ; export NODE_PATH
-PRE_LOCKERBOX_PKG_CONFIG_PATH=${PKG_CONFIG_PATH} ; export PRE_LOCKERBOX_PKG_CONFIG_PATH
 PKG_CONFIG_PATH="${BASEDIR}/local/lib/pkgconfig":${PKG_CONFIG_PATH} ; export PKG_CONFIG_PATH
 
 check_for Git git 'git --version'
