@@ -45,7 +45,7 @@ check_for() {
 # check_for_pkg_config name pkg_config_name [minimum_version [optional]]
 check_for_pkg_config() {
     if ! which pkg-config >/dev/null 2>&1; then
-        echo "pkg-config is not installed: assuming $1 is not present"
+        echo "pkg-config is not installed: assuming $1 is not present either"
         return 1
     fi
 
