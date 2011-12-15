@@ -95,16 +95,16 @@ then
 fi
 
 envscript="${BASEDIR}/lockerbox_environment.sh"
-cat >> "$envscript" <<"EOF"
+cat > "${envscript}" <<MRBARGLES
 export PATH="${BASEDIR}/local/bin":${PATH}
 export NODE_PATH="${BASEDIR}/local/lib/node_modules":${NODE_PATH}
 export PKG_CONFIG_PATH="${BASEDIR}/local/lib/pkgconfig":${PKG_CONFIG_PATH}
 export CXXFLAGS="-I${BASEDIR}/local/include"
 export LD_LIBRARY_PATH="${BASEDIR}/local/lib"
 export LIBRARY_PATH="${BASEDIR}/local/lib"
-EOF
+MRBARGLES
 
-. "$envscript"
+. "${envscript}"
 
 check_for Git git 'git --version'
 check_for Python python 'python -V' 2.6
