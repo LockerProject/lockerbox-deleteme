@@ -112,7 +112,7 @@ then
 fi
 
 envscript="${BASEDIR}/lockerbox_environment.sh"
-cat > "${envscript}" <<"MRBARGLES"
+cat > "${envscript}" <<MRBARGLES
 export PATH="${BASEDIR}/local/bin":${PATH}
 export NODE_PATH="${BASEDIR}/local/lib/node_modules":${NODE_PATH}
 export PKG_CONFIG_PATH="${BASEDIR}/local/lib/pkgconfig":${PKG_CONFIG_PATH}
