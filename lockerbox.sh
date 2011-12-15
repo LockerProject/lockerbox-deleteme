@@ -88,15 +88,10 @@ download () {
 }
 
 #### Main script
-THIS="$(basename $0)"
 
-BASEDIR="$(pwd)"
-if [[ ${BASEDIR} != */lockerbox ]]
-then
-    BASEDIR="${BASEDIR}/lockerbox"
-    mkdir -p "${BASEDIR}"
-    cd "${BASEDIR}"
-fi
+BASEDIR="$(pwd)/lockerbox"
+mkdir -p "${BASEDIR}"
+cd "${BASEDIR}"
 
 envscript="${BASEDIR}/lockerbox_environment.sh"
 cat > "${envscript}" <<MRBARGLES
