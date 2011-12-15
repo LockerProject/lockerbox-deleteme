@@ -111,7 +111,8 @@ then
     cd "${BASEDIR}"
 fi
 
-cat > "${BASEDIR}/lockerbox_environment.sh" <<"MRBARGLES"
+envscript="${BASEDIR}/lockerbox_environment.sh"
+cat > "${envscript}" <<"MRBARGLES"
 export PATH="${BASEDIR}/local/bin":${PATH}
 export NODE_PATH="${BASEDIR}/local/lib/node_modules":${NODE_PATH}
 export PKG_CONFIG_PATH="${BASEDIR}/local/lib/pkgconfig":${PKG_CONFIG_PATH}
@@ -120,7 +121,7 @@ export LD_LIBRARY_PATH="${BASEDIR}/local/lib"
 export LIBRARY_PATH="${BASEDIR}/local/lib"
 MRBARGLES
 
-. "$envscript"
+. "${envscript}"
 
 check_for Git git 'git --version'
 check_for Python python 'python -V' 2.6
