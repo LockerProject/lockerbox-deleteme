@@ -15,48 +15,31 @@ LOCKER_BRANCH=${LOCKER_BRANCH:-master}
 
 #### Helper functions
 
-# check_for name exec_name version_command [minimum_version [optional]]
+# check_for name exec_name version_command [minimum_version]
 check_for() {
-    found="$(which $2 || true)"
-    version="$($3 2>&1 | grep -o -E [-0-9.]\{1,\} | head -n 1)"
-    if [ -z "${found}" ]
-    then
-        echo "$1 not found!" >&2
-        if [ -z "$5" ]; then
-            exit 1
-        else
-            return 1
+    name="$1"
+    command="$2"
+    get_version="$3"
+    min_version="$4"
+
+    if which $command >/dev/null 2>&1; then
+        # It's installed
+        version=$($get_version 2>&1 | grep -o -E [-0-9.]\{1,\} | head -n 1)
+        echo "$name version $version found."
+
+        if [ -z "$min_version" ]; then
+            # ...and that's all we care about
+            return 0
         fi
-    else
-        echo "$1 version ${version} found."
-        if [ -z "$4" ]
+
+        if perl -e 'exit 1 unless v'$version' gt v'$min_version
         then
-            return
+            echo "$1 version $version found ($min_version required)"
+            return 0
         fi
     fi
 
-    if [ -n "$4" ]
-    then
-        if echo $version|grep -q -v -E [0-9]
-        then
-            result="False"
-        else
-            result=$(python -c "print tuple(int(x) for x in '$version'.split('.')) >= tuple(int(x) for x in '$4'.split('.'))")
-        fi
-        if [ "${result}" = "False" ]
-        then
-            echo "$1 version $4 or greater required!" >&2
-
-            if [ -z "$5" ]
-            then
-                exit 1
-            else
-                return 1
-            fi
-        fi
-    else
-        exit 1
-    fi
+    return 1
 }
 
 # check_for_pkg_config name pkg_config_name [minimum_version [optional]]
@@ -130,7 +113,7 @@ check_for cmake cmake 'cmake --version'
 mkdir -p local/build
 cd local/build
 
-if ! check_for Node.js node 'node -v' 0.4.8 optional
+if ! check_for Node.js node 'node -v' 0.4.8
 then
     echo ""
     echo "You don't seem to have node.js installed."
@@ -152,7 +135,7 @@ then
 fi
 
 cd "${BASEDIR}/local/build"
-if ! check_for npm npm "npm -v" 1 optional
+if ! check_for npm npm "npm -v" 1
 then
     echo ""
     echo "About to download and install locally npm."
@@ -168,7 +151,7 @@ fi
 
 if [ ! -e "${BASEDIR}/local/bin/activate" ]
 then
-    if ! check_for virtualenv virtualenv "virtualenv --version" 1.4 optional
+    if ! check_for virtualenv virtualenv "virtualenv --version" 1.4
     then
         echo ""
         echo "About to download virtualenv.py."
@@ -191,7 +174,7 @@ else
     echo "Failed to activate virtual Python environment." >&2
 fi
 
-if ! check_for mongoDB mongod "mongod --version" 1.4.0 optional
+if ! check_for mongoDB mongod "mongod --version" 1.4.0
 then
     OS=`uname -s`
     case "${OS}" in
@@ -229,7 +212,7 @@ then
     fi
 fi
 
-if ! check_for_pkg_config CLucene libclucene-core 2.3.3.4 optional
+if ! check_for_pkg_config CLucene libclucene-core 2.3.3.4
 then
     echo ""
     echo "About to download, build, and install locally CLucene."
