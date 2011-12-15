@@ -44,26 +44,30 @@ check_for() {
 
 # check_for_pkg_config name pkg_config_name [minimum_version [optional]]
 check_for_pkg_config() {
+    name="$1"
+    pkg_config_name="$2"
+    min_version="$3"
+
     if ! which pkg-config >/dev/null 2>&1; then
-        echo "pkg-config is not installed: assuming $1 is not present either"
+        echo "pkg-config is not installed: assuming $name is not present either"
         return 1
     fi
 
-    if ! pkg-config --exists "$2"
+    if ! pkg-config --exists "$pkg_config_name"
     then
-        echo "$1 not found!" >&2
+        echo "$name not found!" >&2
         return 1
     fi
-    version="$(pkg-config --modversion "$2")"
-    echo "$1 version ${version} found."
+    version="$(pkg-config --modversion "$pkg_config_name")"
+    echo "${name} version ${version} found."
 
-    [ -z "$3" ] && return 0
-    if pkg-config --atleast-version="$3" "$2"
+    [ -z "$min_version" ] && return 0
+    if pkg-config --atleast-version="$min_version" "$pkg_config_name"
     then
         return 0
     else
-        echo "$1 version $3 or greater required!" >&2
-        [ -z "$4" ] && exit 1 || return 1
+        echo "$name version $min_version or greater required!" >&2
+        return 1
     fi
 }
 
