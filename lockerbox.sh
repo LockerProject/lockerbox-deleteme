@@ -243,7 +243,7 @@ if ! ./checkEnv.sh; then
 fi
 
 echo "Looks like everything worked, get some API keys (https://github.com/LockerProject/Locker/wiki/GettingAPIKeys) and then try running:"
-echo "cd lockerbox/Locker && node lockerd.js"
+echo "cd lockerbox/Locker && ./locker"
 
 # This won't work until we have API keys -mdz 2011-12-01
 # node lockerd.js
