@@ -248,13 +248,16 @@ exec ./locker
 EOF
 chmod 755 "$lockerbin"
 
+echo
 echo "One final check to see if everything is as it should be..."
 if ! ./checkEnv.sh; then
     echo "Installation appeared to succeed, but dependency check failed :-/" >&2
     exit 1
 fi
 
-echo "Looks like everything worked, get some API keys (https://github.com/LockerProject/Locker/wiki/GettingAPIKeys) and then try running:"
+echo
+echo "Looks like everything worked!"
+echo "Get some API keys (https://github.com/LockerProject/Locker/wiki/GettingAPIKeys) and then try running:"
 echo "cd lockerbox/Locker && ./locker"
 
 # This won't work until we have API keys -mdz 2011-12-01
