@@ -8,7 +8,6 @@ NODE_DOWNLOAD='http://nodejs.org/dist/node-v0.4.11.tar.gz'
 NPM_DOWNLOAD='http://npmjs.org/install.sh'
 VIRTUALENV_DOWNLOAD='http://github.com/pypa/virtualenv/raw/develop/virtualenv.py'
 MONGODB_DOWNLOAD='http://fastdl.mongodb.org/OS/mongodb-OS-ARCH-2.0.0.tgz'
-CLUCENE_REPO='git://clucene.git.sourceforge.net/gitroot/clucene/clucene'
 
 LOCKER_REPO=${LOCKER_REPO:-https://github.com/LockerProject/Locker.git}
 LOCKER_BRANCH=${LOCKER_BRANCH:-master}
@@ -173,7 +172,7 @@ else
     echo "Failed to activate virtual Python environment." >&2
 fi
 
-if ! check_for mongoDB mongod "mongod --version" 1.4.0
+if ! check_for mongoDB mongod "mongod --version" 1.8.0
 then
     OS=`uname -s`
     case "${OS}" in
@@ -211,38 +210,6 @@ then
     fi
 fi
 
-if ! check_for_pkg_config CLucene libclucene-core 2.3.3.4
-then
-    echo ""
-    echo "About to download, build, and install locally CLucene."
-    echo -n "This could take a while."
-    sleep 1 ; printf "." ; sleep 1 ; printf "." ; sleep 1 ; printf "." ; sleep 1
-    cd "${BASEDIR}/local/build"
-    base="$(basename "${CLUCENE_REPO}")"
-    if [ -d "${base}" ]
-    then
-        echo "${CLUCENE_REPO} already downloaded."
-    else
-        if git clone "${CLUCENE_REPO}"
-        then
-            echo "Downloaded ${CLUCENE_REPO}."
-        else
-            echo "Download of ${CLUCENE_REPO} failed!" >&2
-            exit 1
-        fi
-    fi
-    if mkdir -p "${base}/build" && cd "${base}/build" &&
-        cmake -D CMAKE_INSTALL_PREFIX:PATH="${BASEDIR}/local" -G "Unix Makefiles" .. &&
-        make &&
-        make install
-    then
-        echo "Installed CLucene into ${BASEDIR}"
-    else
-        echo "Failed to install CLucene into ${BASEDIR}" >&2
-        exit 1
-    fi
-fi
-
 cd "${BASEDIR}"
 
 if [ ! -d Locker/.git ]
@@ -275,7 +242,8 @@ if ! ./checkEnv.sh; then
     exit 1
 fi
 
-echo "Looks like everything worked."
+echo "Looks like everything worked, get some API keys (https://github.com/LockerProject/Locker/wiki/GettingAPIKeys) and then try running:"
+echo "cd lockerbox/Locker && node lockerd.js"
 
 # This won't work until we have API keys -mdz 2011-12-01
 # node lockerd.js

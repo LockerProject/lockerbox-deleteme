@@ -16,17 +16,15 @@ Locker up and running using LockerBox:
 
  - Python 2.6+
 
- - curl 
+ - curl
 
  - Git
 
- - A C++ build environment (Make, CMake, a C++ compiler, and libssl)
-
 If you are using a recent version of Ubuntu, this should get you set up ready to run LockerBox:
 
-     apt-get install python curl git cmake build-essential libssl-dev
+     apt-get install python curl git build-essential libssl-dev
 
-If you're using Mac OS X, Homebrew works great for installing these dependencies as well.
+If you're using Mac OS X you should have all of the dependencies already.
 
 
 If you don't already have Node.js 0.4.10+ installed, it will be built
