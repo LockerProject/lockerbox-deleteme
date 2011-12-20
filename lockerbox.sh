@@ -236,6 +236,18 @@ if ! python setupEnv.py; then
     exit 1
 fi
 
+# Install a script to launch locker
+bindir="${BASEDIR}/local/bin"
+mkdir -p "$bindir"
+lockerbin="$bindir/locker"
+cat > "$lockerbin" <<EOF
+#!/bin/sh
+
+cd "${BASEDIR}/Locker"
+exec ./locker
+EOF
+chmod 755 "$lockerbin"
+
 echo "One final check to see if everything is as it should be..."
 if ! ./checkEnv.sh; then
     echo "Installation appeared to succeed, but dependency check failed :-/" >&2
