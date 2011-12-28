@@ -20,22 +20,30 @@ check_for() {
     command="$2"
     get_version="$3"
     min_version="$4"
+    max_version="$5"
 
     if which $command >/dev/null 2>&1; then
         # It's installed
         version=$($get_version 2>&1 | grep -o -E [-0-9.]\{1,\} | head -n 1)
         echo "$name version $version found."
 
-        if [ -z "$min_version" ]; then
-            # ...and that's all we care about
-            return 0
+        if [ -n "$min_version" ]; then
+            if ! perl -e 'exit 1 unless v'$version' ge v'$min_version
+            then
+                echo "$1 version $version found (>=$min_version required)"
+                return 1
+            fi
+
+            if [ -n "$max_version" ]; then
+                if ! perl -e 'exit 1 unless v'$version' lt v'$max_version
+                then
+                    echo "$1 version $version found (<$max_version required)"
+                    return 1
+                fi
+            fi
         fi
 
-        if perl -e 'exit 1 unless v'$version' gt v'$min_version
-        then
-            echo "$1 version $version found ($min_version required)"
-            return 0
-        fi
+        return 0
     fi
 
     return 1
@@ -110,7 +118,7 @@ check_for Python python 'python -V' 2.6
 mkdir -p local/build
 cd local/build
 
-if ! check_for Node.js node 'node -v' 0.4.8
+if ! check_for Node.js node 'node -v' 0.4.8 0.5.0
 then
     echo ""
     echo "You don't seem to have node.js installed."
