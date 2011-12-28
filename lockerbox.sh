@@ -106,7 +106,6 @@ MRBARGLES
 
 check_for Git git 'git --version'
 check_for Python python 'python -V' 2.6
-check_for cmake cmake 'cmake --version'
 
 mkdir -p local/build
 cd local/build
