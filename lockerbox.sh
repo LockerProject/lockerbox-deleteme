@@ -4,7 +4,7 @@ set -e
 
 #### Config
 
-NODE_DOWNLOAD='http://nodejs.org/dist/node-v0.6.10.tar.gz'
+NODE_DOWNLOAD='http://nodejs.org/dist/v0.6.10/node-v0.6.10.tar.gz'
 NPM_DOWNLOAD='http://npmjs.org/install.sh'
 VIRTUALENV_DOWNLOAD='http://github.com/pypa/virtualenv/raw/develop/virtualenv.py'
 MONGODB_DOWNLOAD='http://fastdl.mongodb.org/OS/mongodb-OS-ARCH-2.0.0.tgz'
