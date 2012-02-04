@@ -4,7 +4,7 @@ set -e
 
 #### Config
 
-NODE_DOWNLOAD='http://nodejs.org/dist/node-v0.4.11.tar.gz'
+NODE_DOWNLOAD='http://nodejs.org/dist/node-v0.6.10.tar.gz'
 NPM_DOWNLOAD='http://npmjs.org/install.sh'
 VIRTUALENV_DOWNLOAD='http://github.com/pypa/virtualenv/raw/develop/virtualenv.py'
 MONGODB_DOWNLOAD='http://fastdl.mongodb.org/OS/mongodb-OS-ARCH-2.0.0.tgz'
@@ -118,7 +118,7 @@ check_for Python python 'python -V' 2.6
 mkdir -p local/build
 cd local/build
 
-if ! check_for Node.js node 'node -v' 0.4.8 0.5.0
+if ! check_for Node.js node 'node -v' 0.6.0
 then
     echo ""
     echo "You don't seem to have node.js installed."
