@@ -22,7 +22,7 @@ Locker up and running using LockerBox:
 
 If you are using a recent version of Ubuntu, this should get you set up ready to run LockerBox:
 
-     apt-get install python curl git build-essential libssl-dev
+     apt-get install python curl git build-essential libssl-dev make
 
 If you're using Mac OS X you should have all of the dependencies already.
 
