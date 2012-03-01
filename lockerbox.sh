@@ -236,6 +236,8 @@ echo "Checking out submodules"
 git submodule update --init
 
 npm install
+make build
+cp Config/config.json.example Config/config.json
 
 echo "Installing Python modules"
 if ! python setupEnv.py; then
@@ -265,7 +267,9 @@ fi
 echo
 echo "Looks like everything worked!"
 echo "Get some API keys (https://github.com/LockerProject/Locker/wiki/GettingAPIKeys) and then try running:"
-echo "cd lockerbox/Locker && ./locker"
+echo "PATH=`pwd`/lockerbox/local/bin:$PATH && cd lockerbox/Locker && ./locker"
+echo " "
+echo "Once running, visit http://localhost:8042 in your web browser."
 
 # This won't work until we have API keys -mdz 2011-12-01
 # node lockerd.js
