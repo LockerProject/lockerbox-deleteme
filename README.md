@@ -50,30 +50,12 @@ locally. Instead, the already-installed versions will be used.
 
 ## Usage ##
 
-Just run:
-
-    ./lockerbox.sh
-
-Or if you don't want to download first:
-
     curl https://raw.github.com/LockerProject/lockerbox/master/lockerbox.sh | bash
-
-The second option will create a directory called "lockerbox" and put
-everything there. The first will run in the current directory (which
-makes sense if you've just checked out the repo).
-
-Either way, as soon as everything needed is downloaded and started,
-Locker should be up and running, and you can visit
-[localhost:8042](http://localhost:8042/) to see your running copy of
-Locker.
-
-The next time you run lockerbox.sh, it won't need to install anything,
-it will just check that it's all there, and then launch Locker.
 
 ## And then? ##
 
-At this point, you should have a copy of Locker in
-lockerbox/Locker. Now start hacking away!
+At this point, you should have a copy of Locker in lockerbox/Locker. Now start
+hacking away!
 
 If something in your environment gets messed up somehow, you can
 always blow away lockerbox/local and/or lockerbox/Locker and they will
