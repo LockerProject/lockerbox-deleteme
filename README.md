@@ -27,8 +27,8 @@ If you are using a recent version of Ubuntu, this should get you set up ready to
 If you're using Mac OS X you should have all of the dependencies already.
 
 
-If you don't already have Node.js 0.4.10+ installed, it will be built
-for you, and installed in the lockerbox directory. How long this takes
+If you don't already have a recent enough version of Node.js installed, it will
+be built for you, and installed in the lockerbox directory. How long this takes
 will depend on your machine.
 
 Any other dependencies will be automatically downloaded and installed
