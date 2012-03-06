@@ -237,7 +237,6 @@ git submodule update --init
 
 npm install
 make build
-cp Config/config.json.example Config/config.json
 
 echo "Installing Python modules"
 if ! python setupEnv.py; then
